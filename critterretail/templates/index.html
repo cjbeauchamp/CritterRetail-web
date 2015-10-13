@@ -1,0 +1,45 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+
+{% block bodyContent %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+        	{% for p in products %}
+        		<a href="product/{{p.id}}" class="product-link">
+		            <div class="col-xs-6" style="margin-bottom:10px;">
+
+		            	<div style="border:2px solid #ddd;padding:10px;">
+
+							{% with "products/"|add:p.image|add:".jpg" as imageURL %}
+								<div align="center"><img width=100% src="{% static imageURL %}" /></div>
+							{% endwith %}
+
+							<div style="font-size:1.2em;">{{p.name}}</div>
+							<div style="color:#700;font-size:1.1em;font-weight:bold;">${{p.price}}</div>
+
+			                <div class="ratings">
+			                    <p>
+			                    	<span class="glyphicon glyphicon-star{% if p.avgRating < 1 %}-empty{% endif %}"></span>
+			                    	<span class="glyphicon glyphicon-star{% if p.avgRating < 2 %}-empty{% endif %}"></span>
+			                    	<span class="glyphicon glyphicon-star{% if p.avgRating < 3 %}-empty{% endif %}"></span>
+			                    	<span class="glyphicon glyphicon-star{% if p.avgRating < 4 %}-empty{% endif %}"></span>
+			                    	<span class="glyphicon glyphicon-star{% if p.avgRating < 5 %}-empty{% endif %}"></span>
+			                    	({{p.ratingCount}})
+			                    </p>
+			                </div>
+			
+			                <div class="row">
+			                	<div class="col-xs-12">
+			                		<a class="btn btn-success" style="width:100%;" href="javascript:window.location = 'iosrequest://addtocart#{{p.productJSON}}';">Add to Cart</a>
+			                	</div>
+			                </div>
+			            </div>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

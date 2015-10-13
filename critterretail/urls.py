@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from . import views
+from . import apis
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', views.index),
+    url(r'product/(?P<productID>[0-9]+)$', views.product),
+
+    url(r'api/products', apis.products),
+    url(r'api/product/(?P<productID>[0-9]+)/review', apis.addProductReview),
+    url(r'api/confirmPayment/(?P<code>[0-9]+)', apis.confirmPayment),
+    url(r'api/completePurchase', apis.completePurchase),
 ]

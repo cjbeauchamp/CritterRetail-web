@@ -1,0 +1,38 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	    <script type="text/javascript" src="https://d1a62freaxhn7x.cloudfront.net/v2/23/crittercismClientLibraryMin.js"></script>
+
+	    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	    <style type="text/css">
+	    	a.product-link {
+	    		 color: inherit;
+	    		 margin-bottom: 20px;
+	    	}
+	    	a.product-link:hover {
+	    		 text-decoration: none;
+	    	}
+	    </style>
+	</head>
+
+	<body>
+		{% block bodyContent %}{% endblock %}
+	    <script src="{% static 'js/jquery.js' %}"></script>
+	    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	Crittercism.init({
+	    		appId: '56142cb48d4d8c0a00d07c86',
+	    		appVersion: '1.0'
+	    	});
+	    });
+	    </script>
+	    {% block scriptExtras %}{% endblock %}
+	</body>
+</html>

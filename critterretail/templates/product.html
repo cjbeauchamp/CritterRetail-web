@@ -1,0 +1,88 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+
+{% block bodyContent %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="thumbnail">
+	                {% with "products/"|add:product.image|add:".jpg" as imageURL %}
+	                    <img class="img-responsive" src="{% static imageURL %}" alt="">
+					{% endwith %}
+                    <div class="caption-full">
+                        <h4>{{product.name}}</h4>
+                        <h4 style="color:#700;">${{product.price}}</h4>
+                        <p>{{product.description}}</p>
+                    </div>
+                    <div class="ratings">
+                        <p>
+                        	<span class="glyphicon glyphicon-star{% if averageRating < 1 %}-empty{% endif %}"></span>
+                        	<span class="glyphicon glyphicon-star{% if averageRating < 2 %}-empty{% endif %}"></span>
+                        	<span class="glyphicon glyphicon-star{% if averageRating < 3 %}-empty{% endif %}"></span>
+                        	<span class="glyphicon glyphicon-star{% if averageRating < 4 %}-empty{% endif %}"></span>
+                        	<span class="glyphicon glyphicon-star{% if averageRating < 5 %}-empty{% endif %}"></span>
+                            ({{ratingCount}})
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                	<div class="col-md-6 col-md-offset-3">
+                		<a class="btn btn-success" style="width:100%;padding:20px;font-size:1.4em;" href="javascript:iosProductRequest('addtocart');">Add To Cart</a>
+                	</div>
+                </div>
+
+                <div class="well" style="margin-top:20px;">
+                    <div class="text-right">
+                        <a class="btn btn-primary" href="javascript:iosProductRequest('rating');">Add a Rating</a>
+                        <a class="btn btn-primary" href="javascript:iosProductRequest('review');">Leave a Review</a>
+                    </div>
+
+                    {% for review in reviews %}
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>{{review.author}}</strong>
+                            <span class="pull-right">{{review.created}}</span>
+                            <p>{{review.content}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% if reviews|length == 0 %}
+                    <p style="font-style:italic;text-align:center;margin-top:30px;margin-bottom:10px;">No reviews yet...</p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
+
+{% block scriptExtras %}
+    <script type="text/javascript">
+        function iosProductRequest(method) {
+            if(method == 'addtocart' && {{product.id}} == 4) {
+                alert("Error adding item to cart!");
+                throw "Unable to add item {{product.id}} to cart!";
+            }
+
+            window.location = "iosrequest://"+method+"#{{productJSON}}";
+        }
+
+        $(document).ready(function() {
+            Crittercism.leaveBreadcrumb("Viewing product: {{product.id}}");
+        });
+
+    </script>
+{% endblock %}
