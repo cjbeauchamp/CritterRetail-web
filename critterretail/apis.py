@@ -10,7 +10,7 @@ from .models import Product, ProductReview
 def confirmPayment(request, code):
 	time.sleep(randint(2,8))
 	print code
-	codes = [200, 300, 500]
+	codes = [200, 300, 500, 600]
 	if int(code) not in codes:
 		code = 400
 	return HttpResponse(status=code)
