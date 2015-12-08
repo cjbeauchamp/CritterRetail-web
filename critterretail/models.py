@@ -8,18 +8,18 @@ class Product(models.Model):
     description = models.TextField()
     image = models.CharField(max_length=50)
 
-    def dictValue(self):
+    def dictValue(self, request):
     	return {
     		"name": self.name,
     		"price": float(self.price),
     		"productID": self.id,
     		"description": self.description,
-    		"image": "http://127.0.0.1:8000/static/products/" + self.image + ".jpg",
+    		"image": request.scheme + "://" + request.get_host() + "/static/products/" + self.image + ".jpg",
     	}
 
 
-    def jsonValue(self):
-    	return json.dumps(self.dictValue())
+    def jsonValue(self, request):
+    	return json.dumps(self.dictValue(request))
 
     def __unicode__(self):
         return u'%s' % (self.name)

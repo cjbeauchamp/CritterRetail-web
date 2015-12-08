@@ -24,7 +24,7 @@ def products(request):
 	products = Product.objects.all()
 
 	for p in products:
-		productDicts.append(p.dictValue())
+		productDicts.append(p.dictValue(request))
 
 	return JsonResponse({"products": productDicts})
 
