@@ -33,14 +33,14 @@
 
                 <div class="row">
                 	<div class="col-md-6 col-md-offset-3">
-                		<a class="btn btn-success" style="width:100%;padding:20px;font-size:1.4em;" href="javascript:iosProductRequest('addtocart');">Add To Cart</a>
+                		<a class="btn btn-success" style="width:100%;padding:20px;font-size:1.4em;" href="javascript:appRequest('addtocart');">Add To Cart</a>
                 	</div>
                 </div>
 
                 <div class="well" style="margin-top:20px;">
                     <div class="text-right">
-                        <a class="btn btn-primary" href="javascript:iosProductRequest('rating');">Add a Rating</a>
-                        <a class="btn btn-primary" href="javascript:iosProductRequest('review');">Leave a Review</a>
+                        <a class="btn btn-primary" href="javascript:appRequest('rating');">Add a Rating</a>
+                        <a class="btn btn-primary" href="javascript:appRequest('review');">Leave a Review</a>
                     </div>
 
                     {% for review in reviews %}
@@ -71,7 +71,7 @@
 
 {% block scriptExtras %}
     <script type="text/javascript">
-        function iosProductRequest(method) {
+        function appRequest(method) {
             if(method == 'addtocart' && {{product.id}} == 4) {
                 alert("Error adding item to cart!");
                 throw "Unable to add item {{product.id}} to cart!";
